@@ -1,0 +1,16 @@
+<h1>分享名称：</h1>
+<div style="padding: 20px 0 20px 20px;">
+<%= @sharing.title %>
+</div>
+
+<h1>分享理由：</h1>
+<div style="padding: 20px 0 20px 20px;">
+<% if @sharing.reason != '' %>
+  <%= @sharing.reason %>
+<% else %>
+  <%= 'nil'%>
+ <% end %>
+</div>
+
+<%= render :text => "Hello World" %>
+<%= render :template => 'admin/polls/edit'  %>

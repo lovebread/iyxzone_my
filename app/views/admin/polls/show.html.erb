@@ -1,0 +1,33 @@
+<h1>投票名称：</h1>
+<div style="padding: 20px 0 20px 20px;">
+<%= @poll.name %>
+</div>
+
+<h1>投票描述：</h1>
+<div style="padding: 20px 0 20px 20px;">
+<% if @poll.description != '' %>
+  <%= @poll.description %>
+<% else %>
+  <%= 'nil'%>
+<% end %>
+</div>
+
+<h1>投票说明：</h1>
+<div style="padding: 20px 0 20px 20px;">
+<% if @poll.explanation != ''%>
+  <%= @poll.explanation %>
+<% else %>
+  <%= 'nil'%>
+<% end %>
+</div>
+
+<h1>投票选项：</h1>
+<div style="padding: 20px 0 20px 20px;">
+<table class="vote-status-table" cellpadding="0">
+<% @poll.answers.each_with_index do |answer, i| %>
+<tr>
+  <td class="title"><%= answer.description %></td>
+</tr>
+<% end %>
+</table>
+</div>

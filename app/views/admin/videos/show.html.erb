@@ -1,0 +1,23 @@
+<h1>视频标题：</h1>
+<div style="padding: 20px 0 20px 20px;">
+<%= @video.title %>
+</div>
+
+<h1>视频描述：</h1>
+<div style="padding: 20px 0 20px 20px;">
+<% if @video.description and @video.description != '' %>
+  <%= @video.description %>
+<% else %>
+  <%= 'nil'%>
+<% end %>
+</div>
+
+<h1>视频地址：</h1>
+<div style="padding: 20px 0 20px 20px;">
+<a href=><%= @video.video_url %></a>
+</div><br>
+
+
+<div class='con'>
+  <%= @video.embed_html %>
+</div>

@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>分享web连接页面</title>
+  <%= stylesheet_link_tag "common.css" %>
+  <%= stylesheet_link_tag "home.css" %>
+</head>
+
+<body>
+  <div id="header" style="width:100%">
+  <!--navbar-->
+    <div id="navbar">
+      <div id="navwrap">
+        <div id="navmid">
+          <a href="#" class="logo-top png" title="17gaming"></a>
+          <div id="navmain">
+            <ul id="w-nav">
+              <li style="position:relative;">
+                <a href="#" id="cmt"><span>评论</span></a>
+                <div class="drop-box" style="display:none">
+                  <div class="box04 cmt-box s_clear" id="cmt-wrap">
+                    <form action="">
+                      <div class="img"><a href="#"><img src="images/photo/photo17.png" alt="" /></a></div>
+                      <div class="con">
+                        <textarea name="comment" cols="" rows=""></textarea>
+                        <div class="submit s_clear">
+                          <span class="button03"><span><button type="submit">发布</button></span></span>
+                          <span class="left"><a href="#" class="icon-face"></a></span>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <a href="#" id="praise"><strong>100</strong></a>
+              </li>
+              <li>
+                <%= facebox_link "分享", new_sharing_url(:shareable_type => 'Link', :shareable_id => @shareable.id) %>(<%= @shareable.sharings_count %>)
+              </li>
+              <li style="_margin-top:6px">
+                <span>首次分享人：</span><%= avatar_image @shareable.first_sharer, :width => 27, :height => 27 %> <%= profile_link @shareable.first_sharer %></a>
+              </li>
+            </ul>
+          </div>
+          <div id="navextra">
+            <%= link_to_function "<span class='close w-l'></span>关闭顶栏", "window.location.href = '#{@shareable.url}'" %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<iframe frameborder="0" width="100%" height="100%" src="<%= @shareable.url %>">
+</iframe>
+<div id="footer">
+  <p>Copyright &copy; 1998-2009 Tencent. All Rights Reserved</p>
+  <p><a href="#">网游公司 版权所有</a></p>
+</div>
+</body>
+</html>

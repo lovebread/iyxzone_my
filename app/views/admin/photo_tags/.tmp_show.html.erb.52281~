@@ -1,0 +1,4 @@
+<h1>照片描述：</h1>
+<div style="padding: 20px 0 20px 20px;">
+<%= @photo_tag.content %>
+</div>
