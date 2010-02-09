@@ -1,0 +1,12 @@
+<h1>博文标题：</h1>
+
+<div style="padding: 20px 0 20px 20px;">
+<%= @blog.title %>
+</div>
+
+<h1>博文内容：</h1>
+
+<div style="padding: 20px 0 0 20px;">
+<%= @blog.content %>
+</div>
+

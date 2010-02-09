@@ -40,12 +40,17 @@ class Poll < ActiveRecord::Base
   def answers=(answer_attributes)
     @answer_attributes = answer_attributes.find_all {|a| !a[:description].blank?}
   end
-
+  
+  before_save :update_verified
+  
+  def update_verified
+    self.verified = 0 unless @answer_attributes.blank? # do when apend new answers
+  end
+  
   after_save :save_answers
 
   def save_answers
     unless @answer_attributes.blank?
-      
       @answer_attributes.each { |answer_attribute| answers.create(answer_attribute) }
       @answer_attributes = nil
     end
