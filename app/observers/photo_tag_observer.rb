@@ -21,13 +21,6 @@ class PhotoTagObserver < ActiveRecord::Observer
     end  
   end
   
-  # update verified column
-  def before_update photo_tag 
-    if photo_tag.content_changed?
-      photo_tag.verified = 0
-    end
-  end
-  
   def after_destroy tag
     tag.photo.raw_decrement :tags_count
   end

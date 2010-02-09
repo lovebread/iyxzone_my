@@ -18,7 +18,6 @@ class Poll < ActiveRecord::Base
 
   named_scope :unverified, :conditions => {:verified => 0}, :order => "created_at DESC"
 
-  # column 'verified' cannot be modified by user
   attr_protected :verified
   
   acts_as_diggable
@@ -46,6 +45,7 @@ class Poll < ActiveRecord::Base
 
   def save_answers
     unless @answer_attributes.blank?
+      
       @answer_attributes.each { |answer_attribute| answers.create(answer_attribute) }
       @answer_attributes = nil
     end

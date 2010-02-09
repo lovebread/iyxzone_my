@@ -11,7 +11,6 @@ class CommentObserver < ActiveRecord::Observer
     # issue mail and notification
     eval("after_#{comment.commentable_type.underscore}_comment_create(comment)")
     
-    comment.verified = 0  
   end  
 
   def after_blog_comment_create comment

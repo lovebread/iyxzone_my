@@ -29,8 +29,6 @@ class GuildObserver < ActiveRecord::Observer
     # increment counter
     guild.president.raw_increment :guilds_count
 
-    guild.verified = 0  
-    
     # issue feeds if necessary
     return unless guild.president.application_setting.emit_guild_feed
     recipients = [guild.president.profile]

@@ -12,4 +12,18 @@ class AdminBaseController < ApplicationController
     # override this method in child controller
   end
 
+  def succ
+    render :update do |page|
+      page << "alert('操作成功！');"
+      page.redirect_to :back
+    end
+  end
+  
+  def err
+    render :update do |page|
+      page << "error('发生错误');"
+      page.redirect_to :back
+    end
+  end
+  
 end

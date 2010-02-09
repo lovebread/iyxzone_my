@@ -5,60 +5,40 @@ class Admin::SharingsController < AdminBaseController
   end
 
   def show
-    @sharing = Sharing.find(params[:id])
-    unless @sharing
-      render :update do |page|
-        # page << "error('发生错误');"
-        page << "error('发生错误: 分享不存在');"
-      end
-    end
   end
 
   def destroy
   end
 
-  # 审核通过
+  # accept
   def verify
-    @sharing = Sharing.find(params[:id])
-    unless @sharing
-      render :update do |page|
-        page << "error('发生错误: 分享不存在');"
-      end
+    @sharing.verified = 1
+    if @sharing.save
+      succ
     else
-      @sharing.verified = 1
-      if @sharing.update_attributes(params[:sharing])
-        render :update do |page|
-          page << "alert('审核成功！');"
-          page.redirect_to admin_sharings_url
-        end
-      else
-        render :update do |page|
-        page << "error('发生错误: 审核失败!');"
-      end
-      end
+      err
     end
   end
   
-  # 屏蔽文章
+  # reject
   def unverify
-     @sharing = Sharing.find(params[:id])
-    unless @sharing
-      render :update do |page|
-        page << "error('发生错误: 分享不存在');"
-      end
+    @sharing.verified = 2
+    if @sharing.save
+      succ
     else
-      @sharing.verified = 2
-      if @sharing.update_attributes(params[:sharing])
-        render :update do |page|
-          page << "alert('屏蔽成功！');"
-          page.redirect_to admin_sharings_url
-        end
-      else
-        render :update do |page|
-        page << "error('发生错误: 屏蔽失败!');"
-      end
-      end
+      err
     end
+  end
+  
+  
+protected
+
+  def setup
+    if ["show", "destroy", "verify", "unverify"].include? params[:action]
+      @sharing = Sharing.find(params[:id])
+    end
+  rescue
+    not_found
   end
   
 end

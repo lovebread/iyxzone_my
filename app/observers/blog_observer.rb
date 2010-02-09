@@ -8,8 +8,6 @@ class BlogObserver < ActiveRecord::Observer
     # update counter
     blog.poster.raw_increment field(blog)
     
-    blog.verified = 0	
-    
     # issue feeds
     return if blog.draft 
     return unless blog.poster.application_setting.emit_blog_feed

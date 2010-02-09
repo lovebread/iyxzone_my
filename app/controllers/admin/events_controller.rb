@@ -5,60 +5,40 @@ class Admin::EventsController < AdminBaseController
   end
 
   def show
-    @event = Event.find(params[:id])
-    unless @event
-      render :update do |page|
-        # page << "error('发生错误');"
-        page << "error('发生错误: 活动不存在');"
-      end
-    end
   end
 
   def destroy
   end
 
-  # 审核通过
+  
+  # accept
   def verify
-    @event = Event.find(params[:id])
-    unless @event
-      render :update do |page|
-        page << "error('发生错误: 活动不存在');"
-      end
+    @event.verified = 1
+    if @event.save
+      succ
     else
-      @event.verified = 1
-      if @event.update_attributes(params[:event])
-        render :update do |page|
-          page << "alert('审核成功！');"
-          page.redirect_to admin_events_url
-        end
-      else
-        render :update do |page|
-        page << "error('发生错误: 审核失败!');"
-      end
-      end
+      err
     end
   end
   
-  # 屏蔽文章
+  # reject
   def unverify
-     @event = Event.find(params[:id])
-    unless @event
-      render :update do |page|
-        page << "error('发生错误: 活动不存在');"
-      end
+    @event.verified = 2
+    if @event.save
+      succ
     else
-      @event.verified = 2
-      if @event.update_attributes(params[:event])
-        render :update do |page|
-          page << "alert('屏蔽成功！');"
-          page.redirect_to admin_events_url
-        end
-      else
-        render :update do |page|
-        page << "error('发生错误: 屏蔽失败!');"
-      end
-      end
+      err
     end
   end
   
+  
+protected
+
+  def setup
+    if ["show", "destroy", "verify", "unverify"].include? params[:action]
+      @event = Event.find(params[:id])
+    end
+  rescue
+    not_found
+  end
 end

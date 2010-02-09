@@ -10,8 +10,6 @@ class PollObserver < ActiveRecord::Observer
     # increment user's counter
     poll.poster.raw_increment :polls_count
 
-    poll.verified = 0
-    
     # issue feeds if necessary
     return unless poll.poster.application_setting.emit_poll_feed
     recipients = [poll.poster.profile]

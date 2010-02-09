@@ -5,60 +5,40 @@ class Admin::VideosController < AdminBaseController
   end
 
   def show
-    @video = Video.find(params[:id])
-    unless @video
-      render :update do |page|
-        # page << "error('发生错误');"
-        page << "error('发生错误: 视频不存在');"
-      end
-    end
   end
 
   def destroy
   end
 
-  # 审核通过
+  # accept
   def verify
-    @video = Video.find(params[:id])
-    unless @video
-      render :update do |page|
-        page << "error('发生错误: 视频不存在');"
-      end
+    @video.verified = 1
+    if @video.save
+      succ
     else
-      @video.verified = 1
-      if @video.update_attributes(params[:video])
-        render :update do |page|
-          page << "alert('审核成功！');"
-          page.redirect_to admin_videos_url
-        end
-      else
-        render :update do |page|
-        page << "error('发生错误: 审核失败!');"
-      end
-      end
+      err
     end
   end
   
-  # 屏蔽文章
+  # reject
   def unverify
-     @video = Video.find(params[:id])
-    unless @video
-      render :update do |page|
-        page << "error('发生错误: 视频不存在');"
-      end
+    @video.verified = 2
+    if @video.save
+      succ
     else
-      @video.verified = 2
-      if @video.update_attributes(params[:video])
-        render :update do |page|
-          page << "alert('屏蔽成功！');"
-          page.redirect_to admin_videos_url
-        end
-      else
-        render :update do |page|
-        page << "error('发生错误: 屏蔽失败!');"
-      end
-      end
+      err
     end
+  end
+  
+  
+protected
+
+  def setup
+    if ["show", "destroy", "verify", "unverify"].include? params[:action]
+      @video = Video.find(params[:id])
+    end
+  rescue
+    not_found
   end
   
 end

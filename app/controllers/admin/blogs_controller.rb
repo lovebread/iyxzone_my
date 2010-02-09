@@ -5,60 +5,40 @@ class Admin::BlogsController < AdminBaseController
   end
 
   def show
-    @blog = Blog.find(params[:id])
-    unless @blog
-      render :update do |page|
-        # page << "error('发生错误');"
-        page << "error('发生错误: 博文不存在');"
-      end
-    end
   end
 
   def destroy
   end
 
-  # 审核通过
+  # accept | succ and err are defined in admin_base_controller.rb
   def verify
-    @blog = Blog.find(params[:id])
-    unless @blog
-      render :update do |page|
-        page << "error('发生错误: 博文不存在');"
-      end
+    @blog.verified = 1
+    if @blog.save
+      succ
     else
-      @blog.verified = 1
-      if @blog.update_attributes(params[:blog])
-        render :update do |page|
-          page << "alert('审核成功！');"
-          page.redirect_to admin_blogs_url
-        end
-      else
-        render :update do |page|
-        page << "error('发生错误: 审核失败!');"
-      end
-      end
+      err
     end
   end
   
-  # 屏蔽文章
+  # reject
   def unverify
-     @blog = Blog.find(params[:id])
-    unless @blog
-      render :update do |page|
-        page << "error('发生错误: 博文不存在');"
-      end
+    @blog.verified = 2
+    if @blog.save
+      succ
     else
-      @blog.verified = 2
-      if @blog.update_attributes(params[:blog])
-        render :update do |page|
-          page << "alert('屏蔽成功！');"
-          page.redirect_to admin_blogs_url
-        end
-      else
-        render :update do |page|
-        page << "error('发生错误: 屏蔽失败!');"
-      end
-      end
+      err
     end
+  end
+  
+  
+protected
+
+  def setup
+    if ["show", "destroy", "verify", "unverify"].include? params[:action]
+      @blog = Blog.find(params[:id])
+    end
+  rescue
+    not_found
   end
   
 end

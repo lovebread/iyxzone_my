@@ -3,9 +3,7 @@ class VideoObserver < ActiveRecord::Observer
 	def after_create video
     # first increment user's count
     video.poster.raw_increment :videos_count
-    
-    video.verified = 0    
-    
+
     # emit feed if necessary
 		return unless video.poster.application_setting.emit_video_feed
 		return if video.privilege == 4

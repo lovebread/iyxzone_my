@@ -28,8 +28,6 @@ class EventObserver < ActiveRecord::Observer
 
     # increment user's counter
     event.poster.raw_increment :events_count
- 
-    event.verified = 0
     
     # issue feeds
     return unless event.poster.application_setting.emit_event_feed
