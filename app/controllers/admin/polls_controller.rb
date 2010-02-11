@@ -4,6 +4,14 @@ class Admin::PollsController < AdminBaseController
     @polls = Poll.unverified.paginate :page => params[:page], :per_page => 20
   end
 
+  def accept
+    @polls = Poll.accept.paginate :page => params[:page], :per_page => 20
+  end
+  
+  def reject
+    @polls = Poll.reject.paginate :page => params[:page], :per_page => 20
+  end
+
   def show
   end
 

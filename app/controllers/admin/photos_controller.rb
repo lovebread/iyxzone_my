@@ -4,6 +4,14 @@ class Admin::PhotosController < AdminBaseController
     @photos = Photo.unverified.paginate :page => params[:page], :per_page => 20
   end
 
+  def accept
+    @photos = Photo.accept.paginate :page => params[:page], :per_page => 20
+  end
+  
+  def reject
+    @photos = Photo.reject.paginate :page => params[:page], :per_page => 20
+  end
+
   def show
   end
 

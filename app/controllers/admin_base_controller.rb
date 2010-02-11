@@ -14,7 +14,7 @@ class AdminBaseController < ApplicationController
 
   def succ
     render :update do |page|
-      page << "alert('操作成功！');"
+      page << "notice('操作成功！');"
       page.redirect_to :back
     end
   end

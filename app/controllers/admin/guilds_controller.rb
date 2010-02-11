@@ -4,6 +4,14 @@ class Admin::GuildsController < AdminBaseController
     @guilds = Guild.unverified.paginate :page => params[:page], :per_page => 20
   end
 
+  def accept
+    @guilds = Guild.accept.paginate :page => params[:page], :per_page => 20
+  end
+  
+  def reject
+    @guilds = Guild.reject.paginate :page => params[:page], :per_page => 20
+  end
+  
   def show
   end
 

@@ -1,0 +1,26 @@
+<h1>分享名称：</h1>
+<div style="padding: 20px 0 20px 20px;">
+<%= @sharing.title %>
+</div>
+
+<h1>分享理由：</h1>
+<div style="padding: 20px 0 20px 20px;">
+<% if @sharing.reason != '' %>
+  <%= @sharing.reason %>
+<% else %>
+  <%= 'nil'%>
+ <% end %>
+</div>
+
+<tr id='sharing <%= @sharing.id %>'>
+<td>
+	<%= link_to_remote '审查通过', :url => verify_admin_sharing_url(@sharing), :method => :put %>
+</td>
+<td>
+	<%= link_to_remote '屏蔽', :url => unverify_admin_sharing_url(@sharing), :method => :put %>
+</td>
+</tr> 
+
+<%= render :text => "Hello World" %>
+<%= render :template => 'admin/polls/edit'  %>
+<%= render :partial => 'admin/polls/edit'  %>

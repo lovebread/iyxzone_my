@@ -4,6 +4,14 @@ class Admin::TagsController < AdminBaseController
     @tags = Tag.unverified.paginate :page => params[:page], :per_page => 20
   end
 
+  def accept
+    @tags = Tag.accept.paginate :page => params[:page], :per_page => 20
+  end
+  
+  def reject
+    @tags = Tag.reject.paginate :page => params[:page], :per_page => 20
+  end
+
   def show
   end
 

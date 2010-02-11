@@ -4,6 +4,14 @@ class Admin::SharingsController < AdminBaseController
     @sharings = Sharing.unverified.paginate :page => params[:page], :per_page => 20
   end
 
+  def accept
+    @sharings = Sharing.accept.paginate :page => params[:page], :per_page => 20
+  end
+  
+  def reject
+    @sharings = Sharing.reject.paginate :page => params[:page], :per_page => 20
+  end
+  
   def show
   end
 

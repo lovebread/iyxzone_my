@@ -11,8 +11,9 @@ class Status < ActiveRecord::Base
 	acts_as_resource_feeds
   
   named_scope :unverified, :conditions => {:verified => 0}, :order => "created_at DESC"
-
-  # column 'verified' cannot be modified by user
+  named_scope :accept, :conditions => {:verified => 1}, :order => "created_at DESC"
+  named_scope :reject, :conditions => {:verified => 2}, :order => "created_at DESC"
+  
   attr_protected :verified
 
   def validate

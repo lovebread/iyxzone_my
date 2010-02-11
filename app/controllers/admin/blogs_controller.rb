@@ -3,6 +3,14 @@ class Admin::BlogsController < AdminBaseController
   def index
     @blogs = Blog.unverified.paginate :page => params[:page], :per_page => 20
   end
+  
+  def accept
+    @blogs = Blog.accept.paginate :page => params[:page], :per_page => 20
+  end
+  
+  def reject
+    @blogs = Blog.reject.paginate :page => params[:page], :per_page => 20
+  end
 
   def show
   end

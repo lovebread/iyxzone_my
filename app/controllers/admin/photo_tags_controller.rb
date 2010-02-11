@@ -3,6 +3,14 @@ class Admin::PhotoTagsController < AdminBaseController
   def index
     @photo_tags = Photo_tag.unverified.paginate :page => params[:page], :per_page => 20
   end
+  
+  def accept
+    @photo_tags = Photo_tag.accept.paginate :page => params[:page], :per_page => 20
+  end
+  
+  def reject
+    @photo_tags = Photo_tag.reject.paginate :page => params[:page], :per_page => 20
+  end
 
   def show
   end

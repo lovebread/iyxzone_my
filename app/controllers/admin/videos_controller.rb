@@ -4,6 +4,14 @@ class Admin::VideosController < AdminBaseController
     @videos = Video.unverified.paginate :page => params[:page], :per_page => 20
   end
 
+  def accept
+    @videos = Video.accept.paginate :page => params[:page], :per_page => 20
+  end
+  
+  def reject
+    @videos = Video.reject.paginate :page => params[:page], :per_page => 20
+  end
+
   def show
   end
 

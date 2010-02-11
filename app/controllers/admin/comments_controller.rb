@@ -4,6 +4,14 @@ class Admin::CommentsController < AdminBaseController
     @comments = Comment.unverified.paginate :page => params[:page], :per_page => 20
   end
 
+  def accept
+    @comments = Comment.accept.paginate :page => params[:page], :per_page => 20
+  end
+  
+  def reject
+    @comments = Comment.reject.paginate :page => params[:page], :per_page => 20
+  end
+  
   def show
   end
   
